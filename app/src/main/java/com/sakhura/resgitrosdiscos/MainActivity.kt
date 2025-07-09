@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import com.sakhura.resgitrosdiscos.data.Product
+import com.sakhura.resgitrosdiscos.ui.theme.AddProductScreen
 import com.sakhura.resgitrosdiscos.ui.theme.CartScreen
 import com.sakhura.resgitrosdiscos.ui.theme.ProductListScreen
 import com.sakhura.resgitrosdiscos.ui.theme.ResgitrosDiscosTheme
@@ -23,12 +24,7 @@ class MainActivity : ComponentActivity() {
             ResgitrosDiscosTheme {
                 var screen by remember { mutableStateOf("products") }
                 val cart = remember { mutableStateListOf<Product>() }
-
-                val products = listOf(
-                    Product(1, "Disco 1", 29.9, R.drawable.vinilo),
-                    Product(2, "Disco 2", 19.7, R.drawable.vinilo),
-                    Product(3, "Disco 3", 39.3, R.drawable.vinilo)
-                )
+                val products = remember { mutableStateListOf<Product>() }
 
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     when (screen) {
@@ -37,7 +33,15 @@ class MainActivity : ComponentActivity() {
                                 products = products,
                                 onAddToCart = { cart.add(it) },
                                 onGoToCart = { screen = "cart" },
+                                onGoToAddProduct = { screen = "addProduct" },
                                 modifier = Modifier.padding(innerPadding)
+                            )
+                        }
+
+                        "addProduct" -> {
+                            AddProductScreen(
+                                onProductAdded = { products.add(it) },
+                                onBack = { screen = "products" }
                             )
                         }
 

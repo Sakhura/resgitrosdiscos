@@ -18,6 +18,7 @@ fun ProductListScreen(
     products: List<Product>,
     onAddToCart: (Product) -> Unit,
     onGoToCart: () -> Unit,
+    onGoToAddProduct: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
